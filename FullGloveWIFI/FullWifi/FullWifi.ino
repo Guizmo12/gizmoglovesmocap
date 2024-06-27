@@ -16,11 +16,11 @@ const float STRAIGHT_RESISTANCE = 10300.0; // resistance when straight
 const float BEND_RESISTANCE = 90000.0; // resistance at 90 deg
 
 // Wi-Fi credentials
-const char* ssid = "Wifi6";
-const char* password = "Cather1ne1906";
+const char* ssid = "your_ssid";
+const char* password = "your_password";
 
 // UDP settings
-const char* udpAddress = "10.0.0.245"; // IP address of your UDP server
+const char* udpAddress = "your_pcip"; // IP address of your UDP server
 const int udpPort = 12345; // UDP port on the server
 
 WiFiUDP udp;
