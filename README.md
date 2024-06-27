@@ -7,6 +7,6 @@ FlexSensor 2.2" x5
 Gloves of your choice 
 
 ESP32:
-WemosD1
+ESP S3
 or
 FeatherV2
