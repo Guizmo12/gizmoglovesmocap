@@ -1,7 +1,7 @@
 #include <WiFi.h>
 #include <WiFiUdp.h>
 
-const int FLEX_PINS[] = {A1, A2, A3, A4, A0}; // Pins for A1 to A5 
+const int FLEX_PINS[] = {A7, A2, A3, A4, A9}; // Pinout for Feather V2
 const int NUM_SENSORS = 5; // Number of sensors
 
 
