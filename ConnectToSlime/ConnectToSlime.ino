@@ -7,8 +7,8 @@ const int NUM_SENSORS = 5;
 const float VCC = 3.3;
 const float R_DIV = 10000.0;
 
-const char* ssid = "Wifi6";
-const char* password = "Cather1ne1906";
+const char* ssid = "your_ssid";
+const char* password = "your_password";
 IPAddress slimevrIp;
 const int slimevrPort = 6969;
 long packetId = 0;
