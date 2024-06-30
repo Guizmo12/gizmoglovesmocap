@@ -3,6 +3,7 @@
 #include "ByteBuffer.h"
 
 const int FLEX_PINS[] = {A7, A2, A3, A4, A9};
+const int FLEX_IDS[] = {1, 2, 3, 4, 5};  // What do I do here ?!
 const int NUM_SENSORS = 5;
 const float VCC = 3.3;
 const float R_DIV = 10000.0;
@@ -58,7 +59,7 @@ void loop() {
     int flexADC = analogRead(FLEX_PINS[i]);
     float flexV = flexADC * VCC / 1023.0;
     float flexR = R_DIV * (VCC / flexV - 1.0);
-    sendFlexResistance(i + 1, flexR);
+    sendFlexResistance(FLEX_IDS[i], flexR);  // Utilise l'ID spécifique pour chaque capteur
   }
   delay(60);
 }
@@ -74,7 +75,7 @@ void sendHandshake() {
   packetBuffer.putInt(0);
   packetBuffer.putInt(0);
   packetBuffer.putInt(0);  // firmwareBuildVersion
-  const char* fwString = "GizmoFlexGlove";
+  const char* fwString = "GizmoGlove";
   packetBuffer.put((byte)strlen(fwString));
   for (unsigned int i = 0; i < strlen(fwString); i++) {
     packetBuffer.put((byte)fwString[i]);
