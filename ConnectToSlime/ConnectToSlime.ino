@@ -75,7 +75,7 @@ void sendHandshake() {
   packetBuffer.putInt(0);
   packetBuffer.putInt(0);
   packetBuffer.putInt(0);  // firmwareBuildVersion
-  const char* fwString = "GizmoGlove";
+  const char* fwString = "GizmoFlexGlove";
   packetBuffer.put((byte)strlen(fwString));
   for (unsigned int i = 0; i < strlen(fwString); i++) {
     packetBuffer.put((byte)fwString[i]);
