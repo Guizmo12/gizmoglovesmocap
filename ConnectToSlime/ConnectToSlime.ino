@@ -41,7 +41,7 @@ void setup() {
 
   packetBuffer.init(128);
   sendHandshake();
-
+//Slimeconnect
   String handshakeReply = "";
   while (handshakeReply != "Hey OVR =D 5") {
     int packetSize = udp.parsePacket();
