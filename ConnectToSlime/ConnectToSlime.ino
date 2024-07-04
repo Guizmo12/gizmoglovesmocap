@@ -1,5 +1,6 @@
 #include <WiFi.h>
 #include <WiFiUdp.h>
+#include <esp_wifi.h>
 #include "ByteBuffer.h"
 
 const int FLEX_PINS[] = {A7, A2, A3, A4, A9};
@@ -52,6 +53,10 @@ void setup() {
       slimevrIp = udp.remoteIP();  // Found the server, get its IP
     }
   }
+
+  for (int i = 0; i < NUM_SENSORS; i++) {
+    sendSetupSensor(i);
+  }
 }
 
 void loop() {
@@ -74,13 +79,14 @@ void sendHandshake() {
   packetBuffer.putInt(0);
   packetBuffer.putInt(0);
   packetBuffer.putInt(0);
-  packetBuffer.putInt(0);  // firmwareBuildVersion
+  packetBuffer.putInt(17);  // firmwareBuildVersion
   const char* fwString = "GizmoFlexGlove";
   packetBuffer.put((byte)strlen(fwString));
   for (unsigned int i = 0; i < strlen(fwString); i++) {
     packetBuffer.put((byte)fwString[i]);
   }
-  byte macAddress[] = {0x01, 0x02, 0x03, 0x04, 0x05, 0x06};
+  uint8_t macAddress[6];
+  esp_err_t ret = esp_wifi_get_mac(WIFI_IF_STA, macAddress);
   for (int i = 0; i < 6; i++) {
     packetBuffer.put(macAddress[i]);
   }
@@ -89,11 +95,24 @@ void sendHandshake() {
   udp.endPacket();
 }
 
-void sendFlexResistance(int trackerId, float flexResistance) {
+void sendSetupSensor(int sensorId) {
+  packetBuffer.clear();
+  packetBuffer.putInt(15); // const for sensor info
+  packetBuffer.putLong(packetId++);
+  packetBuffer.put((byte)sensorId);
+  packetBuffer.put(1); // sensor status, 1 is OK, 2 is ERROR
+  packetBuffer.put(0); // sensor type
+
+  udp.beginPacket(slimevrIp, slimevrPort);
+  udp.write(packetBuffer.array(), packetBuffer.size());
+  udp.endPacket();
+}
+
+void sendFlexResistance(int sensorId, float flexResistance) {
   packetBuffer.clear();
   packetBuffer.putInt(24);  // const for flex resistance packet
   packetBuffer.putLong(packetId++);
-  packetBuffer.put((byte)trackerId);
+  packetBuffer.put((byte)sensorId);
   packetBuffer.putFloat(flexResistance);
   udp.beginPacket(slimevrIp, slimevrPort);
   udp.write(packetBuffer.array(), packetBuffer.size());
