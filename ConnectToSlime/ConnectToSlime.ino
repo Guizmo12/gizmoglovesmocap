@@ -10,8 +10,8 @@ const float VCC = 3.3; // Voltage supply
 const float R_DIV = 10000.0; // Resistance divider
 
 // WiFi credentials
-const char* ssid = "your_ssid";
-const char* password = "your_password";
+const char* ssid = "Wifi6";
+const char* password = "Cather1ne1906";
 
 IPAddress slimevrIp(255, 255, 255, 255); // Broadcast address for initial setup
 const int slimevrPort = 6969;
@@ -44,12 +44,12 @@ void setup() {
     udp.begin(slimevrPort);
     packetBuffer.init(128);
 
-    // Send handshake to the server
+    // Send handshake to the server (note: this creates a sensor)
     sendHandshake();
 
-    // Initialize each sensor with its unique tracker ID
-    for (int i = -1; i < NUM_SENSORS; i++) {
-        sendSetupSensor(i + 1); // Assigning IDs starting from 1
+    // Initialize additional sensors (starting at ID 1)
+    for (int i = 1; i < NUM_SENSORS; i++) {
+        sendSetupSensor(i);
         Serial.print("Tracker ID for sensor ");
         Serial.print(i);
         Serial.print(" is ");
@@ -62,7 +62,7 @@ void loop() {
         int flexADC = analogRead(FLEX_PINS[i]);
         float flexV = flexADC * VCC / 1023.0; // Convert ADC value to voltage
         float flexR = R_DIV * (VCC / flexV - 1.0); // Calculate flex sensor resistance
-        sendFlexResistance(i + 1, flexR); // Send resistance data with assigned tracker ID
+        sendFlexResistance(i, flexR); // Send resistance data with assigned tracker ID
     }
     delay(60); // Wait 60ms before next read
 }
