@@ -10,8 +10,8 @@ const float VCC = 3.3; // Voltage supply
 const float R_DIV = 10000.0; // Resistance divider
 
 // WiFi credentials
-const char* ssid = "Wifi6";
-const char* password = "Cather1ne1906";
+const char* ssid = "you_ssid";
+const char* password = "your_password";
 
 IPAddress slimevrIp(255, 255, 255, 255); // Broadcast address for initial setup
 const int slimevrPort = 6969;
