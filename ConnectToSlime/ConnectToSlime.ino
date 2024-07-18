@@ -3,14 +3,19 @@
 #include <esp_wifi.h>
 #include "ByteBuffer.h"
 
-// Define the pins for the flex sensors
-const int FLEX_PINS[] = {A7, A2, A3, A4, A9};
+// Define the pins for the flex sensors and their corresponding bone positions
+const int FLEX_PINS[] = {A9, A7, A2, A3, A4};
+// Uncomment the following line for LEFT_HAND bones
+//const int BONE_POSITIONS[] = {22, 25, 28, 31, 34}; // LEFT_THUMB_INTERMEDIATE, LEFT_INDEX_INTERMEDIATE, LEFT_MIDDLE_INTERMEDIATE, LEFT_RING_INTERMEDIATE, LEFT_LITTLE_INTERMEDIATE
+// Uncomment the following line for RIGHT_HAND bones
+const int BONE_POSITIONS[] = {37, 40, 43, 46, 49}; // RIGHT_THUMB_INTERMEDIATE, RIGHT_INDEX_INTERMEDIATE, RIGHT_MIDDLE_INTERMEDIATE, RIGHT_RING_INTERMEDIATE, RIGHT_LITTLE_INTERMEDIATE
+
 const int NUM_SENSORS = 5;
 const float VCC = 3.3; // Voltage supply
 const float R_DIV = 10000.0; // Resistance divider
 
 // WiFi credentials
-const char* ssid = "you_ssid";
+const char* ssid = "your_ssid";
 const char* password = "your_password";
 
 IPAddress slimevrIp(255, 255, 255, 255); // Broadcast address for initial setup
@@ -23,7 +28,7 @@ ByteBuffer packetBuffer;
 void setup() {
     Serial.begin(9600);
     // Initialize the flex sensor pins
-    for (int i = -1; i < NUM_SENSORS; i++) {
+    for (int i = 0; i < NUM_SENSORS; i++) {
         pinMode(FLEX_PINS[i], INPUT);
     }
 
@@ -53,7 +58,7 @@ void setup() {
         Serial.print("Tracker ID for sensor ");
         Serial.print(i);
         Serial.print(" is ");
-        Serial.println(i + 1);
+        Serial.println(i);
     }
 }
 
@@ -82,6 +87,10 @@ void sendHandshake() {
     byte mac[6];
     WiFi.macAddress(mac);
     for (int i = 0; i < 6; i++) packetBuffer.put(mac[i]); // MAC address
+    
+    // Add tracker position and data type (resistance flex data)
+    packetBuffer.putInt(BONE_POSITIONS[0]); // TrackerPosition for handshake
+    packetBuffer.putInt(1); // This tracker should expect resistance flex data
 
     udp.beginPacket(slimevrIp, slimevrPort);
     udp.write(packetBuffer.array(), packetBuffer.size());
@@ -95,6 +104,10 @@ void sendSetupSensor(int trackerId) {
     packetBuffer.put((byte)trackerId); // Tracker ID assigned by firmware
     packetBuffer.put((byte)0); // Sensor status
     packetBuffer.put((byte)1); // IMU type (Example: 1 for generic IMU)
+    
+    // Add tracker position and data type (resistance flex data)
+    packetBuffer.putInt(BONE_POSITIONS[trackerId]); // TrackerPosition
+    packetBuffer.putInt(1); // This tracker should expect resistance flex data
 
     udp.beginPacket(slimevrIp, slimevrPort);
     udp.write(packetBuffer.array(), packetBuffer.size());
