@@ -1,4 +1,4 @@
-#Mocap gloves for SlimeVR
+# Mocap gloves for SlimeVR
 
 FlexSensor 2.2" x5
 ![182-00](https://github.com/user-attachments/assets/d7b9dc47-64e4-46c6-9428-821c17ad21d6)
