@@ -10,7 +10,7 @@ Gloves of your choice. I chose to put 2 figerless glove to make it prettier
 ![612RBkS8q7L _AC_SX679_](https://github.com/user-attachments/assets/a67b9726-dd63-4628-ad4e-4eb43ddd0c52)
 
 Case:
-[I used this case] (https://www.thingiverse.com/thing:4200147) and modified it to have a hole for the wire. 
+[ I used this case ] (https://www.thingiverse.com/thing:4200147) and modified it to have a hole for the wire. 
 ![20240804_220732](https://github.com/user-attachments/assets/6e04c2a0-9dad-40e9-8da4-b8877253c835)
 
 ESP32:
