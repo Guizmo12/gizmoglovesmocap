@@ -30,3 +30,5 @@ Put the resistances on one side of the Featherv2
 
 And solder the wires to the other side
 ![20240804_215721](https://github.com/user-attachments/assets/61e62f3a-48e1-4e59-940a-301538ade69c)
+
+![20240624_180648_1](https://github.com/user-attachments/assets/4174ca0c-9379-43f4-adf1-b5780762082f)
