@@ -6,7 +6,7 @@ FlexSensor 2.2" x5
 
 10k resistance x5
 
-Gloves of your choice. I chose to put 2 figerless glove to make it prettier
+Gloves of your choice. I chose to put 2 fingerless glove to make it prettier
 ![612RBkS8q7L _AC_SX679_](https://github.com/user-attachments/assets/a67b9726-dd63-4628-ad4e-4eb43ddd0c52)
 
 Case:
