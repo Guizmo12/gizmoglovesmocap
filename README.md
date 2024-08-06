@@ -29,7 +29,13 @@ I have cut some slit of the glove to waive the flexsensor trough.
 ## Put the resistances on one side of the Featherv2
 ![20240804_215709](https://github.com/user-attachments/assets/dfd16e30-fd1e-48c2-b028-d1a7e98d9100)
 
-## And solder the wires to the other side
+## And solder the wires to the other side in that order:
+A9: Thumb
+A7: Index
+A2: Middle
+A3: Ring
+A4: Little
+
 ![20240804_215721](https://github.com/user-attachments/assets/61e62f3a-48e1-4e59-940a-301538ade69c)
 
 ![20240624_180648_1](https://github.com/user-attachments/assets/4174ca0c-9379-43f4-adf1-b5780762082f)
