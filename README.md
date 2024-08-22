@@ -23,7 +23,7 @@ I have cut some slit of the glove to waive the flexsensor trough.
 ![20240621_112347](https://github.com/user-attachments/assets/8ab241df-8c4b-4965-ade1-8f581a6688fd)
 ![20240621_114635](https://github.com/user-attachments/assets/f1bb9be3-0689-4c46-ab3f-3d9bbeb75066)
 
-## Wiring is easy just solder wires to all of the same side of the flex sensor. And the other site to the Feather pins 
+## Wiring is easy just solder wires to all of the same side of the flex sensor and solder to GND pin. And the other site to the Feather pins 
 ![s-l960](https://github.com/user-attachments/assets/d1ab0d50-5145-4e97-9453-d61a661a1002)
 
 ## Put the resistances on one side of the Featherv2 and solder all of them together. Solder a wire on the 3v to the joint resistances
