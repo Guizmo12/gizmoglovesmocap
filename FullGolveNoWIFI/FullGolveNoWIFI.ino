@@ -1,5 +1,3 @@
-
-
 const int FLEX_PINS[] = {A7, A2, A3, A4, A9}; // Pins connected to voltage divider outputs
 const int NUM_SENSORS = 5; // Number of sensors
 
