@@ -23,6 +23,7 @@ const char* password = "your_password";
 
 IPAddress slimevrIp(255, 255, 255, 255); // Broadcast address for initial setup
 const int slimevrPort = 6969;
+const int protocolVersion = 18; // First version with flex and trackerposition support
 long packetId = 1;
 
 WiFiUDP udp;
@@ -62,7 +63,7 @@ void setup() {
     sendHandshake();
 
     // Initialize additional sensors (starting at ID 1)
-    for (int i = 1; i < NUM_SENSORS; i++) {
+    for (int i = 0; i < NUM_SENSORS; i++) {
         sendSetupSensor(i);
         Serial.print("Tracker ID for sensor ");
         Serial.print(i);
@@ -96,18 +97,16 @@ void sendHandshake() {
     packetBuffer.putInt(3); // Packet header for handshake
     packetBuffer.putLong(packetId++); // Packet ID
     packetBuffer.putInt(BOARD_TYPE_ID); // Board type
-    packetBuffer.putInt(IMU_TYPE_ID); // IMU type
+    packetBuffer.putInt(0); // IMU type (unused)
     packetBuffer.putInt(MCU_TYPE_ID); // MCU type
-    for (int i = 0; i < 3; i++) packetBuffer.putInt(0); // Unused IMU info
-    packetBuffer.putInt(1); // Firmware build number
-    String fwString = "SlimeVRConnect";
+    for (int i = 0; i < 3; i++) packetBuffer.putInt(0); // IMU info (unused)
+    packetBuffer.putInt(protocolVersion); // Protocol version
+    String fwString = "GizmoGloves";
     packetBuffer.put(fwString.length()); // Length of firmware string
     for (int i = 0; i < fwString.length(); i++) packetBuffer.put(fwString[i]); // Firmware string
     byte mac[6];
     WiFi.macAddress(mac);
     for (int i = 0; i < 6; i++) packetBuffer.put(mac[i]); // MAC address
-    packetBuffer.putInt(BONE_POSITIONS[0]); // TrackerPosition for handshake
-    packetBuffer.putInt(DATA_SUPPORT_ID); // This tracker should expect resistance flex data
 
     udp.beginPacket(slimevrIp, slimevrPort);
     udp.write(packetBuffer.array(), packetBuffer.size());
@@ -123,8 +122,8 @@ void sendSetupSensor(int trackerId) {
     packetBuffer.put((byte)IMU_TYPE_ID); // IMU type
     
     // Add tracker position and data type (resistance flex data)
-    packetBuffer.putInt(BONE_POSITIONS[trackerId]); // TrackerPosition
-    packetBuffer.putInt(DATA_SUPPORT_ID); // This tracker should expect resistance flex data
+    packetBuffer.put((byte)BONE_POSITIONS[trackerId]); // TrackerPosition
+    packetBuffer.put((byte)DATA_SUPPORT_ID); // This tracker should expect resistance flex data
 
     udp.beginPacket(slimevrIp, slimevrPort);
     udp.write(packetBuffer.array(), packetBuffer.size());
