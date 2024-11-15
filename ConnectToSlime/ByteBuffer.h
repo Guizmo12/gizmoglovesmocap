@@ -77,6 +77,11 @@ public:
                put((byte)(in >> 8)) +
                put((byte)in);
     }
+	
+	int putShort(int in) {
+        return put((byte)(in >> 8)) +
+               put((byte)in);
+    }
 
     int putLongInFront(long in) {
         return putInFront((byte)(in >> 56)) +
