@@ -23,7 +23,7 @@ const char* password = "your_password";
 
 IPAddress slimevrIp(255, 255, 255, 255); // Broadcast address for initial setup
 const int slimevrPort = 6969;
-const int protocolVersion = 18; // First version with flex and trackerposition support
+const int protocolVersion = 19; // First version with flex and trackerposition support
 long packetId = 1;
 
 WiFiUDP udp;
@@ -133,7 +133,7 @@ void sendSetupSensor(int trackerId) {
 
 void sendFlexResistance(int sensorId, float resistance) {
     packetBuffer.clear();
-    packetBuffer.putInt(24); // Packet header for flex resistance
+    packetBuffer.putInt(26); // Packet header for flex resistance
     packetBuffer.putLong(packetId++); // Packet ID
     packetBuffer.put((byte)sensorId); // Sensor ID assigned by firmware
     packetBuffer.putFloat(resistance); // Flex resistance value
