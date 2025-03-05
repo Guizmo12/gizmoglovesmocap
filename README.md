@@ -19,8 +19,10 @@
 
 ### **How to build:**  
 I have cut some slit of the glove to waive the flexsensor trough.
-You can use a different way of course, but be sure the base is fixed and the tip can mmove foward and backward easily
+You can use a different way of course, but be sure the base is fixed and the tip can move foward and backward easily
+
 <img src="https://github.com/user-attachments/assets/8ab241df-8c4b-4965-ade1-8f581a6688fd" alt="build1" width="400"/>  
+
 <img src="https://github.com/user-attachments/assets/f1bb9be3-0689-4c46-ab3f-3d9bbeb75066" alt="build2" width="400"/>  
 
 Wiring is easy just solder wires to all of the same side of the flex sensor and solder to GND pin. And the other site to the Feather pins  
