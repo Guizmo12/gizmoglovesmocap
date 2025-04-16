@@ -121,6 +121,7 @@ void sendSetupSensor(int trackerId) {
     packetBuffer.put((byte)0); // Sensor status
     packetBuffer.put((byte)IMU_TYPE_ID); // IMU type
     packetBuffer.putShort(0); // Mag support
+    packetBuffer.put((byte)0); // hasCompletedRestCalibration
     
     // Add tracker position and data type (resistance flex data)
     packetBuffer.put((byte)BONE_POSITIONS[trackerId]); // TrackerPosition
