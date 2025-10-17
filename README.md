@@ -165,7 +165,6 @@ Open **Tools → Serial Monitor** at **115 200 baud** to view sensor readings.
 
 ---
 
-Would you like me to include that optional `#define RIGHT_HAND` logic block (so you can just toggle one value at the top of the code instead of editing `BONE_POSITIONS` manually)?
 ```
 
 
