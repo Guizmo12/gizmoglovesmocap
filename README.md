@@ -47,10 +47,126 @@ A4: Little
 Here I'm using the USB of the FeatherV2 to power it from the wrist tracker. 
 <img src="https://github.com/user-attachments/assets/ee50a69e-d20b-411e-b293-925b1f2b499b" alt="build6" width="700"/>
 
-## Code
 
-You'll need the [Arduino IDE](https://www.arduino.cc/en/software)
+---
 
-- ConnectToSlime is for use with the [SlimeVR Server](https://github.com/SlimeVR/SlimeVR-Server)
-- FullGloveWIFI is for use with server_tester.py
-- FullGloveNoWiFi is for use with a serial console
+## 0. How to install
+
+1. **Install Arduino IDE 2.x**  
+   Download it from the [official Arduino website](https://www.arduino.cc/en/software).
+
+2. **Add the ESP32 board package**  
+   - Go to **File → Preferences → Additional Boards Manager URLs**  
+   - Add the following URL:  
+     ```
+     https://raw.githubusercontent.com/espressif/arduino-esp32/gh-pages/package_esp32_index.json
+     ```
+   - Click **OK**
+   - Then open **Tools → Board → Boards Manager**, search for **ESP32 by Espressif Systems**, and install it.
+
+3. **Download this repository**  
+````
+
+[https://github.com/Guizmo12/gizmoglovesmocap](https://github.com/Guizmo12/gizmoglovesmocap)
+
+````
+
+4. **Open one of the sketch folders** in Arduino IDE:
+- `ConnectToSlime/`
+- `FullGloveWiFi/`
+- `FullGloveNoWiFi/`
+
+5. **Install USB drivers (Windows only)**  
+- Feather ESP32 V2 uses **CP210x USB-to-UART** – install the appropriate driver.  
+- ESP32-S3 boards generally use **native USB (CDC)** – no driver needed on macOS/Linux.
+
+---
+
+## 1. Board Selection
+
+| Board | Arduino IDE Board Setting |
+|-------|----------------------------|
+| Feather ESP32 V2 | **Adafruit Feather ESP32 V2** |
+| ESP32-S3 SuperMini | **ESP32S3 Dev Module** |
+
+Recommended settings:
+- **Upload Speed:** 921 600  
+- **Port:** your detected COM port  
+- For S3 boards: enable **USB CDC On Boot** and **PSRAM** if available.
+
+---
+
+## 2. Wi-Fi Credentials and Hand Selection
+
+Open the `.ino` file and locate the Wi-Fi section:
+
+```cpp
+// Wi-Fi credentials
+const char* ssid = "YourNetworkName";
+const char* password = "YourNetworkPassword";
+````
+
+Enter your network information.
+
+Next, find the hand-selection section:
+
+```cpp
+// Choose which set of bone positions to use
+const int* BONE_POSITIONS = BONE_POSITIONS_RIGHT; // Change to _LEFT for left hand
+```
+
+Change the value depending on which glove you are uploading:
+
+| Glove      | Code line                                           |
+| ---------- | --------------------------------------------------- |
+| Right hand | `const int* BONE_POSITIONS = BONE_POSITIONS_RIGHT;` |
+| Left hand  | `const int* BONE_POSITIONS = BONE_POSITIONS_LEFT;`  |
+
+*Tip: label each physical board before flashing to avoid confusion when pairing with the SlimeVR server.*
+
+---
+
+## 3. Compile and Upload
+
+1. Click **Verify (✓)** to compile the code.
+2. Click **Upload (→)** to flash the board.
+3. When you see `Hard resetting via RTS pin…` in the console, the upload has completed.
+
+**If using ESP32-S3 SuperMini:**
+If upload fails, hold **BOOT**, press **RESET**, release **RESET**, then release **BOOT**, and try uploading again.
+
+---
+
+## 4. Testing
+
+| Sketch             | Description                                 |
+| ------------------ | ------------------------------------------- |
+| `ConnectToSlime/`  | Sends motion data to the **SlimeVR Server** |
+| `FullGloveWiFi/`   | Communicates with `server_tester.py`        |
+| `FullGloveNoWiFi/` | Outputs data through the Serial Monitor     |
+
+Open **Tools → Serial Monitor** at **115 200 baud** to view sensor readings.
+
+---
+
+## 5. Troubleshooting
+
+| Issue                   | Solution                                                                                                   |
+| ----------------------- | ---------------------------------------------------------------------------------------------------------- |
+| **No COM port appears** | Use a data-capable USB cable; install CP210x drivers (Feather). For S3, enter bootloader mode if required. |
+| **Upload timeout**      | Lower upload speed (921 600 → 460 800 → 115 200).                                                          |
+| **Compilation errors**  | Verify correct board is selected (Feather V2 or ESP32S3 Dev Module).                                       |
+
+---
+
+*To simplify hand selection, you can optionally add a single define at the top of your code (e.g., `#define RIGHT_HAND 1`) and handle the selection automatically in your setup code.*
+
+```
+
+---
+
+Would you like me to include that optional `#define RIGHT_HAND` logic block (so you can just toggle one value at the top of the code instead of editing `BONE_POSITIONS` manually)?
+```
+
+
+
