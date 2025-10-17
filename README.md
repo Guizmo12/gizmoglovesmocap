@@ -159,13 +159,3 @@ Open **Tools → Serial Monitor** at **115 200 baud** to view sensor readings.
 
 ---
 
-*To simplify hand selection, you can optionally add a single define at the top of your code (e.g., `#define RIGHT_HAND 1`) and handle the selection automatically in your setup code.*
-
-```
-
----
-
-```
-
-
-
